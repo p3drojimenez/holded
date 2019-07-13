@@ -8,6 +8,7 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
+import { createAppContainer, createStackNavigator } from 'react-navigation'
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -17,18 +18,21 @@ const instructions = Platform.select({
 });
 
 type Props = {};
-export default class App extends Component<Props> {
+class App extends Component<Props> {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+        <Text>Hello from Holder</Text>
       </View>
     );
   }
 }
 
+const AppStackNavigator = createStackNavigator({
+  Home: App
+})
+
+export default createAppContainer(AppStackNavigator)
 const styles = StyleSheet.create({
   container: {
     flex: 1,
