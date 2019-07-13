@@ -8,7 +8,7 @@ import {
 import { Icon } from 'native-base'
 
 const MenuButton = (props) => (
-    <TouchableOpacity onPress={ () => this.props.navigation.openDrawer() }>
+    <TouchableOpacity onPress={ props.onPress }>
         <Icon name='menu' />
     </TouchableOpacity>
     )

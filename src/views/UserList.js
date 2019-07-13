@@ -2,8 +2,16 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 
 import MenuButton from '../components/MenuButton'
+import { connect } from 'react-redux'
 
-export default class UserList extends Component {
+function mapStateToProps(state)
+{
+  console.log(state)
+  return{
+    count: state.stock.count,
+  }
+}
+class UserList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,14 +20,20 @@ export default class UserList extends Component {
 
   static navigationOptions = {
     headerTitle: <Text>User</Text>,
-    headerLeft: <MenuButton />
+    headerLeft: <MenuButton onPress={ () => this.props.navigation.openDrawer() }/>
   };
 
+  componentDidMount = () => {
+    console.log(this.props)
+  };
+  
   render() {
     return (
       <View>
-        <Text> UserList </Text>
+        <Text> Suma: { this.props.count  } </Text>
       </View>
     );
   }
 }
+
+export default connect(mapStateToProps)(UserList)
