@@ -8,16 +8,17 @@ import {
 import { Icon } from 'native-base'
 
 const MenuButton = (props) => (
-    <TouchableOpacity onPress={ props.onPress }>
-        <Icon name='menu' />
+    <TouchableOpacity onPress={ props.onPress } style={styles.container}>
+        <Icon name='menu' style={ styles.button }/>
     </TouchableOpacity>
     )
 export default MenuButton;
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
+        paddingHorizontal:10,
+    },
+    button:{
+        color:'#B5B6B7'
     }
 });

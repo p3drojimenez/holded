@@ -5,14 +5,16 @@ import { createStackNavigator,
 import HomeView from './views/Home'
 import UserListView from './views/UserList'
 import TopView from './views/Top'
+import CurrencyView from './views/Currency'
 
-
-const UserStackNavigation = createStackNavigator({
-    User: UserListView,
-})
-const AppDrawerNavigation = createDrawerNavigator({
+const HomeStackNavigatior = createStackNavigator({
     Home: HomeView,
-    UserList: UserStackNavigation,
+    Currency: CurrencyView
+})
+
+const AppDrawerNavigation = createDrawerNavigator({
+    Home: HomeStackNavigatior,
+    UserList: UserListView,
     Top: TopView 
 })
 
