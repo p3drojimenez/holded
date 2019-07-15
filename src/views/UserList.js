@@ -11,7 +11,8 @@ function mapStateToProps(state)
 {
   return {
     userFavoriteList: state.user.favList,
-    favoriteList: state.stock.favoriteList
+    favoriteListFiltered: state.stock.favoriteListFiltered
+    
   }
 }
 class UserList extends Component {
@@ -21,16 +22,18 @@ class UserList extends Component {
     };
   }
 
+  static navigationOptions = {
+    header: null
+}
 
-  componentDidMount(){
-
-    this.props.dispatch({
-      type: 'GET_FAV',
-      payload:{
-        list: this.props.userFavoriteList
-      }
-    })
-  }
+searchCurrency(search){
+  this.props.dispatch({
+    type: 'SEARCH_CURRENCY_USER',
+    payload:{
+      search
+    }
+  })
+}
 
   render() {
     return (
@@ -43,7 +46,7 @@ class UserList extends Component {
             </Item>            
         </Header>
         <Content>
-          <StockList symbols={this.props.favoriteList}/>
+          <StockList symbols={this.props.favoriteListFiltered}/>
         </Content>
       </Container>
     );

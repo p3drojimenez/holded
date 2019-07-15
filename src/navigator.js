@@ -12,9 +12,14 @@ const HomeStackNavigatior = createStackNavigator({
     Currency: CurrencyView
 })
 
+const UserStackNavigatior = createStackNavigator({
+    UserList: UserListView,
+    Currency: CurrencyView
+})
+
 const AppDrawerNavigation = createDrawerNavigator({
     Home: HomeStackNavigatior,
-    UserList: UserListView,
+    UserList: UserStackNavigatior,
     Top: TopView 
 })
 

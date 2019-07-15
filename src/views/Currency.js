@@ -9,6 +9,16 @@ import {
 import { Icon } from "native-base";
 import {connect} from 'react-redux'
 
+
+function mapStateToProps(state)
+{
+    console.log(state)
+  return {
+    userFavoriteList: state.user.favList,
+    favoriteList: state.stock.favoriteList
+  }
+}
+
 function saveCurrency(props){
    
     const symbol = props.navigation.state.params.currency.item.symbol
@@ -18,19 +28,25 @@ function saveCurrency(props){
             item: symbol
         }
     })
+    props.dispatch({
+        type: 'GET_FAV',
+        payload:{
+          list: props.userFavoriteList
+        }
+      })
 }
 
 const Currency = (props) => 
     (
     <View style={styles.container}>
-        <ImageBackground source={ require('../assets/background.jpg')} style={ styles.header }>
+        <View  style={ styles.header }>
             <Text style={ styles.title}>{ props.navigation.state.params.currency.item.symbol }</Text>
                 <View style={ styles.heartButton }>
                     <TouchableOpacity onPress={ () => saveCurrency(props)}>
-                        <Icon name="heart" size={20} style={ styles.heart }/>
+                        <Icon name="heart" size={20} style={ [ props.userFavoriteList.indexOf(props.navigation.state.params.currency.item.symbol) != -1  ? {color: 'red'} : {color: '#B5B6B7'}]}/>
                     </TouchableOpacity>
                 </View>
-        </ImageBackground>
+        </View>
         <View style={ styles.row }>
             <View>
                 <Text>Open:</Text>
@@ -55,7 +71,7 @@ const Currency = (props) =>
         </View>
     </View>
     )
-export default connect()(Currency);
+export default connect(mapStateToProps)(Currency);
 
 const styles = StyleSheet.create({
     container: {
@@ -73,11 +89,9 @@ const styles = StyleSheet.create({
         paddingTop:10,
         alignItems:'center',
         justifyContent:'space-between',
-        height:200,
     },
     title:{
         fontSize: 18,
-        color:'#FFFFFF',
         fontWeight: 'bold'
     },
     heart:{
