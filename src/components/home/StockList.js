@@ -14,6 +14,7 @@ const StockList = (props) => (
         data={ props.symbols}
         renderItem={({ item }) => ( <Item item={item}/>) }
         ListEmptyComponent={ <ActivityIndicator /> }
+        keyExtractor={(item, index) => index.toString()}
     />
     )
 export default StockList;

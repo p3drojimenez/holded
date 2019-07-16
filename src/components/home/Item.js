@@ -24,7 +24,7 @@ const Item = (props) => (
    <TouchableOpacity style={styles.container} onPress={ () => props.navigation.navigate('Currency', { currency: props} ) }>
        <View style={ styles.row }>
            <Text style={ styles.symbol }>{ props.item.symbol } </Text>
-           <Text style={ styles.lastPrice }>{ props.item.lastPrice} $</Text>
+           <Text style={ styles.lastPrice }>{ Number(props.item.lastPrice).toFixed(2) } $</Text>
        </View>
        <View style={ styles.row }>
            <Text>Open: { props.item.openPrice }</Text>

@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Container, Header, Item, Input, Icon, Content, } from 'native-base';
+import { Container, Header, Right, Left, Body, Title, Content, } from 'native-base';
 import MenuButton from '../components/MenuButton'
-
+import StockList from '../components/home/StockList'
 import { connect } from 'react-redux'
 
 function mapStateToProps(state)
 {
-  return state
+  return {
+    data: state.stock.data
+  }
 }
 class Top extends Component {
   constructor(props) {
@@ -16,18 +18,26 @@ class Top extends Component {
     };
   }
 
+  componentDidMount()
+  {
+      this.props.dispatch({
+        type: 'GET_TOP'
+      })
+  }
   render() {
     return (
       <Container>
         <Header searchBar rounded  style={ styles.head }>
+          <Left>
             <MenuButton onPress={ () => this.props.navigation.openDrawer() }/>
-            <Item>
-              <Icon name="ios-search" />
-              <Input placeholder="Search" onChangeText={ (search) => this.searchCurrency(search)}/>
-            </Item>            
+            </Left>
+            <Body>
+              <Title>TOP</Title>
+            </Body> 
+            <Right />     
         </Header>
         <Content>
-        
+          <StockList symbols={this.props.data}/>
         </Content>
   </Container>
     );

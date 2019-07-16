@@ -14,6 +14,7 @@ function mapStateToProps(state)
   console.log(state)
   return{
     count: state.stock.count,
+    data: state.stock.data,
     symbols: state.stock.dataFilter,
     isConected: state.status.isConected
   }
@@ -46,6 +47,9 @@ class Home extends Component {
       }
     })
   }
+  compare(a,b){
+    return b.priceChange - a.priceChange
+  }
     componentDidMount = async () => {
       await this.checkConnection()
       // if(typeof this.props.symbols == 'undefined' || this.props.isConected)
@@ -61,6 +65,9 @@ class Home extends Component {
       // }else{
       //   console.log("Ya existe")
       // }
+
+      this.props.data.sort(this.compare)
+      
     
     }
 
