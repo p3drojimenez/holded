@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Container, Header, Item, Input, Icon, Content, } from 'native-base';
 import MenuButton from '../components/MenuButton'
-import StockList from '../components/home/StockList'
+import StockList from '../components/shared/StockList'
 
 import { connect } from 'react-redux'
 
@@ -46,7 +46,9 @@ searchCurrency(search){
             </Item>            
         </Header>
         <Content>
-          <StockList symbols={this.props.favoriteListFiltered}/>
+          { this.props.favoriteListFiltered.length != 0 ? 
+            <StockList symbols={this.props.favoriteListFiltered}/>
+          : <Text>You don't have any favourite currency yet</Text> }
         </Content>
       </Container>
     );

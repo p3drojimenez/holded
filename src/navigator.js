@@ -19,7 +19,7 @@ const UserStackNavigatior = createStackNavigator({
 
 const AppDrawerNavigation = createDrawerNavigator({
     Home: HomeStackNavigatior,
-    UserList: UserStackNavigatior,
+    User: UserStackNavigatior,
     Top: TopView 
 })
 

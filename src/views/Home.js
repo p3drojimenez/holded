@@ -5,9 +5,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import MenuButton from '../components/MenuButton'
 import { connect } from 'react-redux'
 
-import StockList from '../components/home/StockList'
-
-
+import StockList from '../components/shared/StockList'
 
 function mapStateToProps(state)
 {
@@ -15,7 +13,8 @@ function mapStateToProps(state)
   return{
     count: state.stock.count,
     data: state.stock.data,
-    symbols: state.stock.dataFilter,
+    dataFilter: state.stock.dataFilter,
+    symbols: state.stock.symbols,
     isConected: state.status.isConected
   }
 }
@@ -32,7 +31,6 @@ class Home extends Component {
 
       try{
         const isConectedCall = await fetch('https://api.binance.com/api/v1/ping')
-        const statusCode = await isConectedCall.status
         return true
       }catch{
         return false
@@ -47,27 +45,21 @@ class Home extends Component {
       }
     })
   }
-  compare(a,b){
-    return b.priceChange - a.priceChange
-  }
-    componentDidMount = async () => {
-      await this.checkConnection()
-      // if(typeof this.props.symbols == 'undefined' || this.props.isConected)
-      // {
-        const dataCall = await fetch('https://api.binance.com/api/v1/ticker/24hr')
-        console.log("Llamada a la api")
-        this.props.dispatch({
-          type: 'STORE_DATA',
-          payload:{
-            data: await dataCall.json()
-          }
-        })
-      // }else{
-      //   console.log("Ya existe")
-      // }
 
-      this.props.data.sort(this.compare)
-      
+  async getData()
+  {
+    const dataCall = await fetch('https://api.binance.com/api/v1/ticker/24hr')  
+    this.props.dispatch({
+        type: 'STORE_DATA',
+        payload:{
+          data: await dataCall.json()
+        }
+      })
+  }
+
+    async componentDidMount(){
+      await this.checkConnection()
+      this.getData()
     
     }
 
@@ -92,7 +84,7 @@ class Home extends Component {
           <Content>
             <View style={ styles.container} >
               { !this.props.isConected && <Text>You are not connected</Text> }
-              <StockList symbols={this.props.symbols}/>
+              <StockList symbols={this.props.dataFilter} />
             </View>
           </Content>
       </Container>

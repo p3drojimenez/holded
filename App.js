@@ -7,8 +7,8 @@ import { Provider } from 'react-redux';
 
 import {store, persistor} from './src/store';
 
+class App extends React.Component {
 
-export default class App extends React.Component {
   render() {
     return ( 
       <Provider store={store}>
@@ -18,3 +18,5 @@ export default class App extends React.Component {
       </Provider>)
     }
   }
+
+  export default App

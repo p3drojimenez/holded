@@ -21,7 +21,7 @@ function mapStateToProps(state)
 
 function saveCurrency(props){
    
-    const symbol = props.navigation.state.params.currency.item.symbol
+    const symbol = props.navigation.state.params.currency.symbol
     props.dispatch({
         type:'SAVE_FAV',
         payload:{
@@ -36,41 +36,45 @@ function saveCurrency(props){
       })
 }
 
-const Currency = (props) => 
-    (
+import RealTime from '../components/currency/RealTime'
+
+function Currency(props){
+    return(
     <View style={styles.container}>
         <View  style={ styles.header }>
-            <Text style={ styles.title}>{ props.navigation.state.params.currency.item.symbol }</Text>
+            <Text style={ styles.title}>{ props.navigation.state.params.currency.symbol }</Text>
                 <View style={ styles.heartButton }>
                     <TouchableOpacity onPress={ () => saveCurrency(props)}>
-                        <Icon name="heart" size={20} style={ [ props.userFavoriteList.indexOf(props.navigation.state.params.currency.item.symbol) != -1  ? {color: 'red'} : {color: '#B5B6B7'}]}/>
+                        <Icon name="heart" size={20} style={ [ props.userFavoriteList.indexOf(props.navigation.state.params.currency.symbol) != -1  ? {color: 'red'} : {color: '#B5B6B7'}]}/>
                     </TouchableOpacity>
                 </View>
         </View>
         <View style={ styles.row }>
             <View>
                 <Text>Open:</Text>
-                <Text>{ props.navigation.state.params.currency.item.openPrice }</Text>
+                <Text>{ props.navigation.state.params.currency.openPrice }</Text>
             </View>
             <View>
                 <Text>Last Price:</Text>
-                <Text>{ props.navigation.state.params.currency.item.lastPrice }</Text>
+                <Text>{ props.navigation.state.params.currency.lastPrice }</Text>
             </View>
            
         </View>
         <View style={ styles.row }>
             <View>
-                <Text>priceChange:</Text>
-                <Text>{ props.navigation.state.params.currency.item.priceChange }</Text>
+                <Text>Price Change:</Text>
+                <Text>{ props.navigation.state.params.currency.priceChange }</Text>
             </View>
             <View>
-                <Text>priceChangePercent:</Text>
-                <Text>{ props.navigation.state.params.currency.item.priceChangePercent }</Text>
+                <Text>Price Change Percent:</Text>
+                <Text>{ props.navigation.state.params.currency.priceChangePercent } %</Text>
             </View>
-           
+        </View>
+        <View>
+           <RealTime symbol={props.navigation.state.params.currency.symbol} />
         </View>
     </View>
-    )
+    )}
 export default connect(mapStateToProps)(Currency);
 
 const styles = StyleSheet.create({

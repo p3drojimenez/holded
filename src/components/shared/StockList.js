@@ -9,10 +9,15 @@ import {
 
 import Item from './Item'
 
+function renderItem(item) {
+    return( <Item {...item}/> )
+
+}
+
 const StockList = (props) => (
     <FlatList
         data={ props.symbols}
-        renderItem={({ item }) => ( <Item item={item}/>) }
+        renderItem={({ item }) => renderItem(item) }
         ListEmptyComponent={ <ActivityIndicator /> }
         keyExtractor={(item, index) => index.toString()}
     />

@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Container, Header, Right, Left, Body, Title, Content, } from 'native-base';
 import MenuButton from '../components/MenuButton'
-import StockList from '../components/home/StockList'
+import StockList from '../components/shared/StockList'
 import { connect } from 'react-redux'
 
 function mapStateToProps(state)
 {
   return {
-    data: state.stock.data
+    dataSorted: state.stock.dataSorted
   }
 }
 class Top extends Component {
@@ -24,6 +24,11 @@ class Top extends Component {
         type: 'GET_TOP'
       })
   }
+
+  compare(a,b){
+    return a.priceChangePercent - b.priceChangePercent
+  }
+
   render() {
     return (
       <Container>
@@ -37,7 +42,7 @@ class Top extends Component {
             <Right />     
         </Header>
         <Content>
-          <StockList symbols={this.props.data}/>
+          <StockList symbols={this.props.dataSorted.sort(this.compare).reverse()}/>
         </Content>
   </Container>
     );

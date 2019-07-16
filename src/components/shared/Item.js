@@ -8,27 +8,17 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { Icon } from "native-base";
 import { withNavigation } from 'react-navigation';
 import Price from './price'
-import {connect} from 'react-redux'
 
-
-function saveCurrency(props){
-    props.dispatch({
-        type:'SAVE_FAV',
-        payload:{
-            item: props.item.symbol
-        }
-    })
-}
 
 const Item = (props) => (
    <TouchableOpacity style={styles.container} onPress={ () => props.navigation.navigate('Currency', { currency: props} ) }>
        <View style={ styles.row }>
-           <Text style={ styles.symbol }>{ props.item.symbol } </Text>
-           <Text style={ styles.lastPrice }>{ Number(props.item.lastPrice).toFixed(2) } $</Text>
+           <Text style={ styles.symbol }>{ props.symbol } </Text>
+           <Text style={ styles.lastPrice }>{ Number(props.lastPrice).toFixed(2) } $</Text>
        </View>
        <View style={ styles.row }>
-           <Text>Open: { props.item.openPrice }</Text>
-           <Text>Price: <Price price={ props.item.priceChangePercent}/></Text>
+           <Text>Open: { props.openPrice }</Text>
+           <Text>Price: <Price price={ props.priceChangePercent}/></Text>
        </View>
    </TouchableOpacity>
     )
